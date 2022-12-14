@@ -19,7 +19,7 @@ Actions:
       Artifacts:
         - Name: build
           Files:
-            - build/**/*
+            - dist/**/*
     Configuration:
       Steps:
         - Run: npm install
