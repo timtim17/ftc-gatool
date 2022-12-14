@@ -28,7 +28,7 @@ Actions:
         - Run: npm install
         - Run: npm run build
         - Run: mkdir -p cdk/frontend/build
-        - Run: mv build/* cdk/frontend/build/
+        - Run: mv dist/* cdk/frontend/build/
         - Run: find * -maxdepth 0 -name 'cdk' -prune -o -exec rm -rf '{}' ';'
         - Run: mv cdk/* .
   CDKBootstrapAction:
