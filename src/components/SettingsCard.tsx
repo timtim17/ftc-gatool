@@ -95,7 +95,8 @@ export default function SettingsCard({scorekeeperIp, setScorekeeperIp, eventKey,
                             setEventKey(detail.selectedOption.value!);
                             setEventName(detail.selectedOption.label!);
                         }}
-                        options={Object.entries(eventNames).map(([key, name]) => ({ label: name, value: key }))} />
+                        options={Object.entries(eventNames).map(([key, name]) => ({ label: name, value: key }))}
+                        empty='No events found' />
                 </FormField>
             </SpaceBetween>
         </Container>
