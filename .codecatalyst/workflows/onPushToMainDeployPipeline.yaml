@@ -1,5 +1,5 @@
-
 Name: onPushToMainDeployPipeline
+RunMode: SUPERSEDED
 SchemaVersion: "1.0"
 Triggers:
   - Type: PUSH
