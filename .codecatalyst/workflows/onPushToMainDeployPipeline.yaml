@@ -41,7 +41,7 @@ Actions:
       Name: development
       Connections:
         - Name: "267253737119"
-          Role: arn:aws:iam::267253737119:role/service-role/CodeCatalystPreviewDevelopmentAdministrator-zz0c0h
+          Role: CodeCatalystPreviewDevelopmentAdministrator-zz0c0h
     Inputs:
       Sources:
         - WorkflowSource
@@ -62,4 +62,4 @@ Actions:
       Name: development
       Connections:
         - Name: "267253737119"
-          Role: arn:aws:iam::267253737119:role/service-role/CodeCatalystPreviewDevelopmentAdministrator-zz0c0h
+          Role: CodeCatalystPreviewDevelopmentAdministrator-zz0c0h
