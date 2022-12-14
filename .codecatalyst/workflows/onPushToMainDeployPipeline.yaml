@@ -26,9 +26,6 @@ Actions:
     Configuration:
       Steps:
         - Run: npm install
-        - Run: npm test -- --coverage --watchAll=false --testResultsProcessor="jest-junit"
-        - Run: "[ ! -d coverage ] || mv coverage cdk/"
-        - Run: "[ ! -d reports ] || mv reports cdk/"
         - Run: npm run build
         - Run: mkdir -p cdk/frontend/build
         - Run: mv build/* cdk/frontend/build/
@@ -44,7 +41,7 @@ Actions:
       Name: development
       Connections:
         - Name: "267253737119"
-          Role: No role selected
+          Role: arn:aws:iam::267253737119:role/service-role/CodeCatalystPreviewDevelopmentAdministrator-zz0c0h
     Inputs:
       Sources:
         - WorkflowSource
@@ -65,4 +62,4 @@ Actions:
       Name: development
       Connections:
         - Name: "267253737119"
-          Role: No role selected
+          Role: arn:aws:iam::267253737119:role/service-role/CodeCatalystPreviewDevelopmentAdministrator-zz0c0h

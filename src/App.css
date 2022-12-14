@@ -1,38 +1,32 @@
-.App {
-  text-align: center;
+#announcer-table tr:nth-last-of-type(-n + 2), #announcer-table-elims tr:nth-last-of-type(-n + 3) {
+    background-color: rgb(81, 130, 255);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#announcer-table tr, #announcer-table-elims tr {
+    background-color: rgb(234, 86, 86);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.team-card {
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.team-card h3, .team-card h4, .team-card h5 {
+    color: white;
+    margin: 16px 0;
 }
 
-.App-link {
-  color: #61dafb;
+.team-card h3 {
+    font-size: 3em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.team-card h4 {
+    font-size: 1.5em;
+}
+
+.team-card h5 {
+    font-size: 1.1em;
+    font-weight: normal;
 }
