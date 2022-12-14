@@ -1,5 +1,5 @@
-
 Name: onPullRequestBuild
+RunMode: PARALLEL
 SchemaVersion: "1.0"
 Triggers:
   - Type: PULLREQUEST
