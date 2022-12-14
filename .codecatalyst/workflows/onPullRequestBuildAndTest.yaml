@@ -1,0 +1,47 @@
+
+Name: onPullRequestBuildAndTest
+SchemaVersion: "1.0"
+Triggers:
+  - Type: PULLREQUEST
+    Branches:
+      - main
+      - develop
+    Events:
+      - OPEN
+      - REVISION
+Actions:
+  Build:
+    Identifier: aws/build@v1
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Outputs:
+      Artifacts:
+        - Name: build
+          Files:
+            - build/**/*
+    Configuration:
+      Steps:
+        - Run: npm install
+        - Run: npm run build
+  Test:
+    Identifier: aws/managed-test@v1
+    DependsOn:
+      - Build
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Outputs:
+      Reports:
+        CoverageReport:
+          Format: CLOVERXML
+          IncludePaths:
+            - coverage/clover.xml
+        UnitTestReport:
+          Format: JUNITXML
+          IncludePaths:
+            - coverage/junit.xml
+    Configuration:
+      Steps:
+        - Run: npm install
+        - Run: npm test -- --coverage --watchAll=false --testResultsProcessor="jest-junit"
