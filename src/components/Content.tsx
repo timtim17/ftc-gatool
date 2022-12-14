@@ -16,6 +16,7 @@ import TeamInfoCache from '../TeamInfoCache';
 import MatchCache from '../MatchCache';
 import AllianceSelectionCard from './AllianceSelectionCard';
 import { MatchType } from '../types/util';
+import FirstMatchCard from './FirstMatchCard';
 
 interface ContentProps {
     setNotifications: (node: React.ReactNode | undefined) => void,
@@ -75,6 +76,7 @@ export default function Content({activeHref, eventKey, setEventKey, scorekeeperI
                                                         matchCache={matchCache} teamInfoCache={teamInfoCache} eventKey={eventKey}
                                                         curElimMatch={curElimMatch} setCurElimMatch={setCurElimMatch}
                                                         matchType={matchType} setMatchType={setMatchType} />}
+                    {(activeHref == '#/field' || activeHref == '#/announcer') && matchType == 'quals' && <FirstMatchCard matchCache={matchCache} teamInfoCache={teamInfoCache} curQualMatch={curQualMatch} />}
                     {(activeHref == '#/alliance' || activeHref == '#/awards') && <AllianceSelectionCard teamInfoCache={teamInfoCache} setModalTeam={setModalTeam} />}
                     {(activeHref == '#/rankings' || activeHref == '#/alliance') && <RankingsCard rankings={rankings} refreshRankings={refreshRankings} />}
                     {activeHref == '#/settings' && <SettingsCard

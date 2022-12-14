@@ -53,6 +53,10 @@ export default class MatchCache {
 
     fillElimsCache() {
         fetch(`${this.scorekeeperIp}/api/v2/events/${this.eventKey}/elims/?cacheBust=${Math.random()}`)
+            .then(res => {
+                if (!res.ok) throw new Error();
+                return res;
+            })
             .then(res => res.json())
             .then(data => data.matches.forEach((m: any) => {
                 this.elimsCache[m.matchNumber] = {
@@ -71,7 +75,8 @@ export default class MatchCache {
                     },
                     state: m.matchState,
                 };
-            }));
+            }))
+            .catch(() => { /* ignored */ });
     }
 
     totalQuals() {
@@ -80,5 +85,9 @@ export default class MatchCache {
 
     totalElims() {
         return Object.keys(this.elimsCache).length;
+    }
+
+    allQuals(): Record<number, Match> {
+        return structuredClone(this.qualsCache);
     }
 }
