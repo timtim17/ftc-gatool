@@ -5,7 +5,7 @@ import FormField from '@cloudscape-design/components/form-field';
 import Input from '@cloudscape-design/components/input';
 import Select from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface SettingsCardProps {
     scorekeeperIp: string,
@@ -24,8 +24,11 @@ export default function SettingsCard({scorekeeperIp, setScorekeeperIp, eventKey,
     }
     const [loading, setLoading] = useState(false);
     const [notifications, setNotifications] = useState<React.ReactNode | undefined>();
+    const [localScorekeeperIp, setLocalScoreKeeperIp] = useState(scorekeeperIp);
+    useEffect(() => setLocalScoreKeeperIp(scorekeeperIp), [scorekeeperIp]);
 
     function refreshEvents() {
+        setScorekeeperIp(localScorekeeperIp);
         setLoading(true);
         const promises: Promise<any>[] = [];
         const eventNames: Record<string, string> = {};
@@ -82,8 +85,8 @@ export default function SettingsCard({scorekeeperIp, setScorekeeperIp, eventKey,
                     description='IP address of the scoring server.'
                     secondaryControl={<Button onClick={refreshEvents} loading={loading}>Sync events</Button>}>
                     <Input
-                        value={scorekeeperIp}
-                        onChange={event => setScorekeeperIp(event.detail.value)} />
+                        value={localScorekeeperIp}
+                        onChange={event => setLocalScoreKeeperIp(event.detail.value)} />
                 </FormField>
 
                 {notifications}
