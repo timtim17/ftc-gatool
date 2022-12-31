@@ -123,7 +123,7 @@ function App() {
                     modalTeam={modalTeam} setModalTeam={setModalTeam} teamInfoCache={teamInfoCache}
                     matchCache={matchCache} curElimMatch={curElimMatch} setCurElimMatch={setCurElimMatch} />}
                 navigation={<Navigation activeHref={activeHref} setActiveHref={setActiveHref} />}
-                tools={<RankingsTool rankings={rankings} refreshRankings={refreshRankings} />}
+                tools={<RankingsTool rankings={rankings} refreshRankings={refreshRankings} setModalTeam={setModalTeam} />}
                 notifications={
                     <SpaceBetween size='s'>
                         <Alert visible={disconnected} type="warning" header='Disconnected from FTCLive'>

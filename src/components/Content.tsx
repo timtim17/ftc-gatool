@@ -78,7 +78,7 @@ export default function Content({activeHref, eventKey, setEventKey, scorekeeperI
                                                         matchType={matchType} setMatchType={setMatchType} />}
                     {(activeHref == '#/field' || activeHref == '#/announcer') && matchType == 'quals' && <FirstMatchCard matchCache={matchCache} teamInfoCache={teamInfoCache} curQualMatch={curQualMatch} />}
                     {(activeHref == '#/alliance' || activeHref == '#/awards') && <AllianceSelectionCard teamInfoCache={teamInfoCache} setModalTeam={setModalTeam} />}
-                    {(activeHref == '#/rankings' || activeHref == '#/alliance') && <RankingsCard rankings={rankings} refreshRankings={refreshRankings} />}
+                    {(activeHref == '#/rankings' || activeHref == '#/alliance') && <RankingsCard rankings={rankings} refreshRankings={refreshRankings} setModalTeam={setModalTeam} />}
                     {activeHref == '#/settings' && <SettingsCard
                                                         scorekeeperIp={scorekeeperIp}
                                                         setScorekeeperIp={setScorekeeperIp}

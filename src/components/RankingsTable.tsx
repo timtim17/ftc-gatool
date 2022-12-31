@@ -7,9 +7,10 @@ interface RankingsTableProps {
     rankings: RankedTeam[],
     refreshRankings: () => Promise<any>,
     hideButton?: boolean,
+    setModalTeam?: (val: number | null) => void,
 }
 
-export default function RankingsTable({rankings, refreshRankings, hideButton = false}: RankingsTableProps) {
+export default function RankingsTable({rankings, refreshRankings, hideButton = false, setModalTeam}: RankingsTableProps) {
     const [loading, setLoading] = useState(false);
 
     return (
@@ -59,7 +60,12 @@ export default function RankingsTable({rankings, refreshRankings, hideButton = f
                     },
                 ]}
                 items={rankings}
-                variant='embedded' />
+                variant='embedded'
+                onRowClick={({ detail: { item: team } }) => {
+                    if (setModalTeam) {
+                        setModalTeam(team.team);
+                    }
+                }} />
         </>
     )
 }

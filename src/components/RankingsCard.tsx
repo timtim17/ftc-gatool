@@ -8,9 +8,10 @@ import RankingsTable from './RankingsTable';
 interface RankingsCardProps {
     rankings: RankedTeam[],
     refreshRankings: () => Promise<any>,
+    setModalTeam: (val: number | null) => void,
 }
 
-export default function RankingsCard({rankings, refreshRankings}: RankingsCardProps) {
+export default function RankingsCard({rankings, refreshRankings, setModalTeam}: RankingsCardProps) {
     const [loading, setLoading] = useState(false);
 
     return (
@@ -23,7 +24,7 @@ export default function RankingsCard({rankings, refreshRankings}: RankingsCardPr
                 Rankings
             </Header>
         }>
-            <RankingsTable rankings={rankings} refreshRankings={refreshRankings} hideButton />
+            <RankingsTable rankings={rankings} refreshRankings={refreshRankings} hideButton setModalTeam={setModalTeam} />
         </Container>
     )
 }

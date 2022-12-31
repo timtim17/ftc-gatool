@@ -6,12 +6,13 @@ import RankingsTable from './RankingsTable';
 interface RankingsToolProps {
     rankings: RankedTeam[],
     refreshRankings: () => Promise<any>,
+    setModalTeam: (val: number | null) => void,
 }
 
-export default function RankingsTool({rankings, refreshRankings}: RankingsToolProps) {
+export default function RankingsTool({rankings, refreshRankings, setModalTeam}: RankingsToolProps) {
     return (
         <HelpPanel header={<Header variant='h2'>Rankings</Header>}>
-            <RankingsTable rankings={rankings} refreshRankings={refreshRankings} />
+            <RankingsTable rankings={rankings} refreshRankings={refreshRankings} setModalTeam={setModalTeam} />
         </HelpPanel>
     )
 }
