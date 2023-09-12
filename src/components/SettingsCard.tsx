@@ -33,10 +33,10 @@ export default function SettingsCard({scorekeeperIp, setScorekeeperIp, eventKey,
         const promises: Promise<any>[] = [];
         const eventNames: Record<string, string> = {};
 
-        promises.push(fetch(`${scorekeeperIp}/api/v1/events`)
+        promises.push(fetch(`${scorekeeperIp}/api/v1/events/`)
             .then(res => res.json())
             .then(data => Promise.all(data.eventCodes.map(
-                (key: string) => fetch(`${scorekeeperIp}/api/v1/events/${key}`)
+                (key: string) => fetch(`${scorekeeperIp}/api/v1/events/${key}/`)
                     .then(res => res.json())
                     .then(data => eventNames[key] = data.name)
             )))

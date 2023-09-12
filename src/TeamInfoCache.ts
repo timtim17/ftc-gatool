@@ -43,7 +43,7 @@ export default class TeamInfoCache {
     }
 
     fillTeams() {
-        fetch(`${this.scorekeeperIp}/api/v1/events/${this.eventKey}/teams`)
+        fetch(`${this.scorekeeperIp}/api/v1/events/${this.eventKey}/teams/`)
             .then(res => res.json())
             .then(data => this.teams = data.teamNumbers);
     }
