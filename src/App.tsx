@@ -4,6 +4,7 @@ import Flashbar from '@cloudscape-design/components/flashbar';
 import Link from '@cloudscape-design/components/link';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 // import { TopNavigation } from '@cloudscape-design/components';
+import { Mode, applyMode } from '@cloudscape-design/global-styles';
 import './App.css';
 import Content from './components/Content';
 import Navigation from './components/Navigation';
@@ -13,6 +14,8 @@ import RankingsTool from './components/RankingsTool';
 import TeamInfoCache from './TeamInfoCache';
 import MatchCache from './MatchCache';
 
+
+export const LS_DARK_THEME = 'IsDarkTheme';
 
 function App() {
     const [notifications, setNotifications] = useState<React.ReactNode | undefined>();
@@ -64,6 +67,8 @@ function App() {
 
     const teamInfoCache = useMemo(() => new TeamInfoCache(scorekeeperIp, eventKey ?? undefined), [scorekeeperIp, eventKey]);
     const matchCache = useMemo(() => new MatchCache(scorekeeperIp, eventKey!), [scorekeeperIp, eventKey]);
+
+    useEffect(() => applyMode(localStorage.getItem(LS_DARK_THEME) == 'true' ? Mode.Dark : Mode.Light), []);
 
     function refreshEvent() {
         if (!eventKey) return;

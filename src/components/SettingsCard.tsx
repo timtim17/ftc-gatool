@@ -5,7 +5,10 @@ import FormField from '@cloudscape-design/components/form-field';
 import Input from '@cloudscape-design/components/input';
 import Select from '@cloudscape-design/components/select';
 import SpaceBetween from '@cloudscape-design/components/space-between';
+import Toggle from '@cloudscape-design/components/toggle';
+import { Mode, applyMode } from '@cloudscape-design/global-styles';
 import React, { useEffect, useState } from 'react';
+import { LS_DARK_THEME } from '../App';
 
 interface SettingsCardProps {
     scorekeeperIp: string,
@@ -26,6 +29,13 @@ export default function SettingsCard({scorekeeperIp, setScorekeeperIp, eventKey,
     const [notifications, setNotifications] = useState<React.ReactNode | undefined>();
     const [localScorekeeperIp, setLocalScoreKeeperIp] = useState(scorekeeperIp);
     useEffect(() => setLocalScoreKeeperIp(scorekeeperIp), [scorekeeperIp]);
+    const [isDarkTheme, _setIsDarkTheme] = useState(false);
+    const setIsDarkTheme = (newValue: boolean) => {
+        _setIsDarkTheme(newValue);
+        localStorage.setItem(LS_DARK_THEME, JSON.stringify(newValue));
+        applyMode(newValue ? Mode.Dark : Mode.Light);
+    }
+    useEffect(() => setIsDarkTheme(localStorage.getItem(LS_DARK_THEME) == 'true'), []);
 
     function refreshEvents() {
         setScorekeeperIp(localScorekeeperIp);
@@ -101,6 +111,10 @@ export default function SettingsCard({scorekeeperIp, setScorekeeperIp, eventKey,
                         options={Object.entries(eventNames).map(([key, name]) => ({ label: name, value: key }))}
                         empty='No events found' />
                 </FormField>
+
+                <Toggle onChange={({ detail }) => {setIsDarkTheme(detail.checked)}} checked={isDarkTheme}>
+                    Dark Theme
+                </Toggle>
             </SpaceBetween>
         </Container>
     );
