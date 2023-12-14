@@ -31,7 +31,11 @@ export default class MatchCache {
     }
 
     fillCache() {
-        fetch(`${this.scorekeeperIp}/api/v1/events/${this.eventKey}/matches/?cacheBust=${Math.random()}`)
+        fetch(`${this.scorekeeperIp}/api/v1/events/${this.eventKey}/matches/?cacheBust=${Math.random()}`, {
+            headers: {
+                'Origin': location.href,
+            },
+        })
             .then(res => res.json())
             .then(data => data.matches.forEach((m: any) => {
                 this.qualsCache[m.matchNumber] = {
@@ -52,7 +56,11 @@ export default class MatchCache {
     }
 
     fillElimsCache() {
-        fetch(`${this.scorekeeperIp}/api/v2/events/${this.eventKey}/elims/?cacheBust=${Math.random()}`)
+        fetch(`${this.scorekeeperIp}/api/v2/events/${this.eventKey}/elims/?cacheBust=${Math.random()}`, {
+            headers: {
+                'Origin': location.href,
+            },
+        })
             .then(res => {
                 if (!res.ok) throw new Error();
                 return res;

@@ -27,7 +27,11 @@ export default class TeamInfoCache {
         if (this.cache.hasOwnProperty(team)) {
             return this.cache[team];
         }
-        const result = await fetch(`${this.scorekeeperIp}/api/v1/${this.eventKey ? `events/${this.eventKey}/` : ''}teams/${team}/`)
+        const result = await fetch(`${this.scorekeeperIp}/api/v1/${this.eventKey ? `events/${this.eventKey}/` : ''}teams/${team}/`, {
+            headers: {
+                'Origin': location.href,
+            },
+        })
             .then(res => res.json())
             .then(data => ({
                 number: data.number,
@@ -43,7 +47,11 @@ export default class TeamInfoCache {
     }
 
     fillTeams() {
-        fetch(`${this.scorekeeperIp}/api/v1/events/${this.eventKey}/teams/`)
+        fetch(`${this.scorekeeperIp}/api/v1/events/${this.eventKey}/teams/`, {
+            headers: {
+                'Origin': location.href,
+            },
+        })
             .then(res => res.json())
             .then(data => this.teams = data.teamNumbers);
     }

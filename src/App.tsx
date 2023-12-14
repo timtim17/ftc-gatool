@@ -54,7 +54,11 @@ function App() {
     useEffect(() => {
         if (!eventKey) return;
         refreshEvent();
-        fetch(`${scorekeeperIp}/api/v1/events/${eventKey}/matches/active/`)
+        fetch(`${scorekeeperIp}/api/v1/events/${eventKey}/matches/active/`, {
+            headers: {
+                'Origin': location.href,
+            },
+        })
             .then(res => res.json())
             .then(data => {
                 if (data.matches.length > 0) {
@@ -102,7 +106,11 @@ function App() {
     }
 
     function refreshRankings() {
-        return fetch(`${scorekeeperIp}/api/v1/events/${eventKey}/rankings/`)
+        return fetch(`${scorekeeperIp}/api/v1/events/${eventKey}/rankings/`, {
+            headers: {
+                'Origin': location.href,
+            },
+        })
             .then(res => res.json())
             .then(data => data.rankingList)
             .then(setRankings);
