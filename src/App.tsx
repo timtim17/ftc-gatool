@@ -19,19 +19,17 @@ export const LS_DARK_THEME = 'IsDarkTheme';
 
 function App() {
     const [notifications, setNotifications] = useState<React.ReactNode | undefined>();
-    const [activeHref, setActiveHref] = useState('#/field');
     const [rankings, setRankings] = useState<RankedTeam[]>([]);
     const [eventKey, _setEventKey] = useState<string | null>(localStorage.getItem('eventKey'));
     function setEventKey(val: string | null) {
-        const currentEvent = eventKey;
         _setEventKey(val);
         if (val) {
             localStorage.setItem('eventKey', val);
         } else {
             localStorage.removeItem('eventKey');
         }
-        if (currentEvent != eventKey) refreshEvent();
     }
+    const [activeHref, setActiveHref] = useState(eventKey != null ? '#/field' : '#/settings');
     const [scorekeeperIp, _setScorekeeperIp] = useState(localStorage.getItem('scorekeeperIp') ?? 'http://localhost');
     function setScorekeeperIp(val: string) {
         if (!val.startsWith('http')) val = 'http://' + val;
