@@ -5,7 +5,7 @@ export default class MatchCache {
     private readonly scorekeeperIp: string;
     private readonly eventKey: string;
     private qualsCache: Record<number, Match> = {};
-    private elimsCache: Record<number, Match> = {};
+    private elimsCache: Record<number, Match> = {}; // TODO: replace with a list
 
     constructor(scorekeeperIp: string, eventKey: string) {
         this.scorekeeperIp = scorekeeperIp;
