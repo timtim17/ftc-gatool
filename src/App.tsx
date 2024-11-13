@@ -81,7 +81,7 @@ function App() {
         const promises: Promise<any>[] = [];
 
         promises.push(refreshRankings());
-        matchCache.updateCacheIfEmpty();
+        matchCache.updateCache();
 
         Promise.all(promises).then(() => {
             setDisconnected(false);

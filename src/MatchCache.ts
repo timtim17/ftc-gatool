@@ -1,4 +1,4 @@
-import { Match } from "./types/match";
+import { Match, TeamNumber } from "./types/match";
 import { MatchType } from "./types/util";
 
 export default class MatchCache {
@@ -21,17 +21,15 @@ export default class MatchCache {
         return null;
     }
 
-    updateCacheIfEmpty() {
+    updateCache() {
         if (Object.keys(this.qualsCache).length == 0) {
             this.fillCache();
         }
-        if (Object.keys(this.elimsCache).length == 0) {
-            this.fillElimsCache();
-        }
+        this.fillElimsCache();
     }
 
     fillCache() {
-        fetch(`${this.scorekeeperIp}/api/v1/events/${this.eventKey}/matches/?cacheBust=${Math.random()}`, {
+        fetch(`${this.scorekeeperIp}/api/v1/events/${this.eventKey}/matches/`, {
             headers: {
                 'Origin': location.href,
             },
@@ -55,8 +53,14 @@ export default class MatchCache {
             }));
     }
 
+    private parseElimTeams(apiResponseAlliance: {captain: number, pick1: number, pick2: number}): TeamNumber[] {
+        return ['captain' as const, 'pick1' as const, 'pick2' as const]
+            .map(key => apiResponseAlliance[key])
+            .filter(teamNum => teamNum > 0);
+    }
+
     fillElimsCache() {
-        fetch(`${this.scorekeeperIp}/api/v2/events/${this.eventKey}/elims/?cacheBust=${Math.random()}`, {
+        fetch(`${this.scorekeeperIp}/api/v2/events/${this.eventKey}/elims/`, {
             headers: {
                 'Origin': location.href,
             },
@@ -71,16 +75,8 @@ export default class MatchCache {
                     name: m.matchName,
                     number: m.matchNumber,
                     field: m.field,
-                    red: {
-                        captain: m.red.captain,
-                        pick1: m.red.pick1,
-                        pick2: m.red.pick2
-                    },
-                    blue: {
-                        captain: m.blue.captain,
-                        pick1: m.blue.pick1,
-                        pick2: m.blue.pick2
-                    },
+                    red: this.parseElimTeams(m.red),
+                    blue: this.parseElimTeams(m.blue),
                     state: m.matchState,
                 };
             }))

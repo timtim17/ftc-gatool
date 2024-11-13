@@ -1,4 +1,4 @@
-#announcer-table tr:nth-last-of-type(-n + 2), #announcer-table-elims tr:nth-last-of-type(-n + 3) {
+#announcer-table tr:nth-last-of-type(-n + 2), #announcer-table-elims tr:nth-last-of-type(-n + 2) {  /* TODO: fix this */
     background-color: rgb(81, 130, 255);
 }
 

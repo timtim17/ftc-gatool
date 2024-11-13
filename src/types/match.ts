@@ -7,15 +7,11 @@ export interface Match {
     state: string,
 }
 
-export type Alliance = QualsAlliance | ElimsAlliance;
+export type TeamNumber = number;
+
+export type Alliance = QualsAlliance | TeamNumber[];
 
 export interface QualsAlliance {
-    team1: number,
-    team2: number,
-}
-
-export interface ElimsAlliance {
-    captain: number,
-    pick1: number,
-    pick2: number,
+    team1: TeamNumber,
+    team2: TeamNumber,
 }

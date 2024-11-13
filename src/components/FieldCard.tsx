@@ -8,7 +8,7 @@ import Spinner from '@cloudscape-design/components/spinner';
 import { useEffect, useState } from 'react';
 import MatchCache from '../MatchCache';
 import TeamInfoCache from '../TeamInfoCache';
-import { ElimsAlliance, Match, QualsAlliance } from '../types/match';
+import { Match, QualsAlliance, TeamNumber } from '../types/match';
 import { Team } from '../types/team';
 import { AllianceColor, MatchType, PositionNumber } from '../types/util';
 
@@ -84,26 +84,33 @@ function QualsTable({match, setModalTeam, teamInfoCache}: MatchTableProps) {
 }
 
 function ElimsTable({match, setModalTeam, teamInfoCache}: MatchTableProps) {
-    const [teams, setTeams] = useState<{[c in AllianceColor]: {[p in PositionNumber]: Team}} | undefined>();
+    const [teams, setTeams] = useState<{[c in AllianceColor]: Team[]} | undefined>();
     useEffect(() => {
         if (!match) return;
-        const [redAlliance, blueAlliance] = [match.red as ElimsAlliance, match.blue as ElimsAlliance];
-        Promise.all([teamInfoCache.getTeam(redAlliance.captain), teamInfoCache.getTeam(redAlliance.pick1), teamInfoCache.getTeam(redAlliance.pick2),
-                     teamInfoCache.getTeam(blueAlliance.captain), teamInfoCache.getTeam(blueAlliance.pick1), teamInfoCache.getTeam(blueAlliance.pick2),])
+        const [redAlliance, blueAlliance] = [match.red as TeamNumber[], match.blue as TeamNumber[]];
+        Promise.all([
+            Promise.all(redAlliance.map(teamNumber => teamInfoCache.getTeam(teamNumber))),
+            Promise.all(blueAlliance.map(teamNumber => teamInfoCache.getTeam(teamNumber))),
+        ])
             .then(data => setTeams({
-                red: {'1': data[0], '2': data[1], '3': data[2],},
-                blue: {'1': data[3], '2': data[4], '3': data[5],},
+                red: data[0],
+                blue: data[1],
             }));
     }, [match]);
     if (!match || !teams) return loadingPlaceholder;
+    let teamBoxes: JSX.Element[] = [];
+    let i = 0;
+    for (; i < teams.red.length; i++) {
+        teamBoxes.push(<TeamBox key={i * 2} allianceColor='red' team={teams.red[i]!} setModalTeam={setModalTeam} />);
+        teamBoxes.push(i < teams.blue.length ? <TeamBox key={i * 2 + 1} allianceColor='blue' team={teams.blue[i]!} setModalTeam={setModalTeam} /> : <div key={i * 2 + 1} />);
+    }
+    for (; i < teams.blue.length; i++) {
+        teamBoxes.push(<div key={i * 2} />);
+        teamBoxes.push(<TeamBox key={i * 2 + 1} allianceColor='blue' team={teams.blue[i]!} setModalTeam={setModalTeam} />);
+    }
     return (
         <ColumnLayout columns={2}>
-            <TeamBox allianceColor='red' team={teams.red['1']!} setModalTeam={setModalTeam} />
-            <TeamBox allianceColor='blue' team={teams.blue['1']!} setModalTeam={setModalTeam} />
-            <TeamBox allianceColor='red' team={teams.red['2']!} setModalTeam={setModalTeam} />
-            <TeamBox allianceColor='blue' team={teams.blue['2']!} setModalTeam={setModalTeam} />
-            <TeamBox allianceColor='red' team={teams.red['3']!} setModalTeam={setModalTeam} />
-            <TeamBox allianceColor='blue' team={teams.blue['3']!} setModalTeam={setModalTeam} />
+            {teamBoxes}
         </ColumnLayout>
     );
 }
