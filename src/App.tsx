@@ -147,7 +147,7 @@ function App() {
                         {notifications}
                     </SpaceBetween>
                 }
-                toolsHide={eventKey == null} />
+                toolsHide={eventKey == null} headerVariant='high-contrast' />
         </>
     );
 }

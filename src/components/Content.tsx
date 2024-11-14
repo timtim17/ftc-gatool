@@ -52,7 +52,7 @@ export default function Content({activeHref, eventKey, setEventKey, scorekeeperI
     const [matchType, setMatchType] = useState<MatchType>('quals');
 
     return (
-        <ContentLayout
+        <ContentLayout headerVariant='high-contrast'
             header={
                 <Box margin={{ top: 's' }}>
                     <Header
